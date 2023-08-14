@@ -2,6 +2,7 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 import { fetchThreadsByUserId } from '@/lib/api/actions/thread.actions';
 import { ThreadCard } from '@/components/cards/ThreadCard';
+import { fetchCommunityPosts } from '@/lib/api/actions/community.actions';
 
 interface IResult {
   name: string;
@@ -41,11 +42,11 @@ interface IThreadsTabContentProps {
 export const ThreadsTabContent = async (props: IThreadsTabContentProps) => {
   let result: IResult;
 
-  if (props.accountType == 'User')
-    result = await fetchThreadsByUserId(props.accountId);
-  //else result = undefined; // await fetchUserPosts(accountId);
+  result =
+    props.accountType == 'User'
+      ? await fetchThreadsByUserId(props.accountId)
+      : await fetchCommunityPosts(props.accountId);
 
-  // @ts-ignore
   if (!result) return redirect('/');
 
   return (
@@ -69,7 +70,11 @@ export const ThreadsTabContent = async (props: IThreadsTabContentProps) => {
           community={
             props.accountType == 'Community'
               ? { name: result.name, id: result.id, image: result.image }
-              : thread.community
+              : {
+                  name: thread.community!.name,
+                  image: thread.community!.image,
+                  id: thread.community!.id,
+                }
           }
           createdAt={thread.createdAt}
           comments={thread.children.map((item: any) => ({

@@ -65,6 +65,10 @@ export const fetchPosts = async (
     .limit(paging.pageSize)
     .populate({ path: 'author', model: User })
     .populate({
+      path: 'community',
+      model: Community,
+    })
+    .populate({
       path: 'children',
       populate: {
         path: 'author',

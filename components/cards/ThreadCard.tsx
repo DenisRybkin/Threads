@@ -33,7 +33,12 @@ interface IThreadCardProps {
 export const ThreadCard = (props: IThreadCardProps) => {
   const authorLink = `/profile/${props.author.id}`;
 
-  console.log(props.community);
+  const communityInfo =
+    !props.isComment &&
+    props.community &&
+    `${formatDateString(props.createdAt)}  ${
+      props.community?.name && `- ${props.community.name}`
+    } Community`;
 
   return (
     <article
@@ -164,10 +169,7 @@ export const ThreadCard = (props: IThreadCardProps) => {
           href={`/communities/${props.community.id}`}
           className="mt-5 flex items-center"
         >
-          <p className="text-subtle-medium text-gray-1">
-            {formatDateString(props.createdAt)}
-            {props.community && ` - ${props.community.name} Community`}
-          </p>
+          <div className="text-subtle-medium text-gray-1">{communityInfo}</div>
 
           <Image
             src={props.community.image}

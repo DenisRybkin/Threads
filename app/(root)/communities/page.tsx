@@ -46,7 +46,9 @@ export default async ({
                 username={community.username}
                 imgUrl={community.image}
                 bio={community.bio}
-                members={community.members}
+                members={community.members?.map((item: any) => ({
+                  image: item.image,
+                }))}
               />
             ))}
           </>

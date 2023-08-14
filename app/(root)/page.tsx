@@ -8,6 +8,8 @@ export default async function Home() {
     fetchPosts({ page: 1, pageSize: 30 }),
   ]);
 
+  threads.items.forEach(post => post.community && console.log(post.community));
+
   return (
     <>
       <h1 className="head-text text-left">Home</h1>
@@ -29,7 +31,13 @@ export default async function Home() {
                   name: post.author.name,
                   image: post.author.image,
                 }}
-                community={post.community}
+                community={
+                  post.community && {
+                    id: post.community.id,
+                    name: post.community.name,
+                    image: post.community.image,
+                  }
+                }
                 createdAt={post.createdAt}
                 comments={(post.children ?? []).map((item: any) => ({
                   author: { image: item.author.image },
