@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/classNames';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface ICommunityCardProps {
   id: string;
@@ -58,7 +58,7 @@ export const CommunityCard = (props: ICommunityCardProps) => {
                 width={28}
                 height={28}
                 className={cn(
-                  'rounded-full object-cover',
+                  'rounded-full object-cover h-[28px] w-[28px]',
                   index != 0 && '-ml-2'
                 )}
               />
