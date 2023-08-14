@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface IProfileHeaderProps {
   accountId: string;
@@ -9,7 +9,7 @@ interface IProfileHeaderProps {
   username: string;
   imgUrl: string;
   bio: string;
-  type?: string;
+  type?: "User" | 'Community';
 }
 
 export const ProfileHeader = (props: IProfileHeaderProps) => {

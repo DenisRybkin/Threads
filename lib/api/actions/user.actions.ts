@@ -1,13 +1,13 @@
 'use server';
 
-import { connectToDB } from '@/lib/mongoose';
-import { User } from '@/lib/api/models/user.model';
-import { revalidatePath } from 'next/cache';
 import { Community } from '@/lib/api/models/community.model';
-import { FilterQuery, SortOrder } from 'mongoose';
+import { Thread } from '@/lib/api/models/thread.model';
+import { User } from '@/lib/api/models/user.model';
 import { OptionalPagingOptsOpts } from '@/lib/api/types/paging';
 import { map2PagingDto, transformPagingOpts } from '@/lib/api/utils/paging';
-import { Thread } from '@/lib/api/models/thread.model';
+import { connectToDB } from '@/lib/mongoose';
+import { FilterQuery, SortOrder } from 'mongoose';
+import { revalidatePath } from 'next/cache';
 
 interface IUpdateUserParams {
   userId: string;
@@ -49,7 +49,7 @@ export const updateUser = async (dto: IUpdateUserParams): Promise<void> => {
 
     if (dto.path == 'profile/edit') revalidatePath(dto.path);
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     throw new Error(`Failed to create/update user: ${error?.message}`);
   }
 };

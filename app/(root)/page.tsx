@@ -1,14 +1,12 @@
+import { ThreadCard } from '@/components/cards/ThreadCard';
 import { fetchPosts } from '@/lib/api/actions/thread.actions';
 import { currentUser } from '@clerk/nextjs';
-import { ThreadCard } from '@/components/cards/ThreadCard';
 
 export default async function Home() {
   const [user, threads] = await Promise.all([
     currentUser(),
     fetchPosts({ page: 1, pageSize: 30 }),
   ]);
-
-  threads.items.forEach(post => post.community && console.log(post.community));
 
   return (
     <>

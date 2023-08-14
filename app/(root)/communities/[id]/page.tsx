@@ -1,11 +1,11 @@
-import { currentUser } from '@clerk/nextjs';
-import { fetchCommunityDetails } from '@/lib/api/actions/community.actions';
+import { UserCard } from '@/components/cards/UserCard';
 import { ProfileHeader } from '@/components/shared/ProfileHeader';
+import { ThreadsTabContent } from '@/components/shared/ThreadsTabContent';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CommunityTabKeys, communityTabs } from '@/constants/navigation';
+import { fetchCommunityDetails } from '@/lib/api/actions/community.actions';
+import { currentUser } from '@clerk/nextjs';
 import Image from 'next/image';
-import { ThreadsTabContent } from '@/components/shared/ThreadsTabContent';
-import { UserCard } from '@/components/cards/UserCard';
 
 export default async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
@@ -39,8 +39,8 @@ export default async ({ params }: { params: { id: string } }) => {
                 />
                 <p className="max-sm:hidden">{tab.label}</p>
 
-                {tab.label == CommunityTabKeys.threads && (
-                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                {tab.value == CommunityTabKeys.threads && (
+                  <p className="ml-1 rounded-lg bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
                     {communityDetails.threads.length}
                   </p>
                 )}

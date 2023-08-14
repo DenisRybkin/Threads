@@ -1,12 +1,11 @@
-import { currentUser } from '@clerk/nextjs';
-import { fetchUser } from '@/lib/api/actions/user.actions';
-import { redirect } from 'next/navigation';
-import { fetchThreadById } from '@/lib/api/actions/thread.actions';
 import { ProfileHeader } from '@/components/shared/ProfileHeader';
+import { ThreadsTabContent } from '@/components/shared/ThreadsTabContent';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProfileTabKeys, profileTabs } from '@/constants/navigation';
+import { fetchUser } from '@/lib/api/actions/user.actions';
+import { currentUser } from '@clerk/nextjs';
 import Image from 'next/image';
-import { ThreadsTabContent } from '@/components/shared/ThreadsTabContent';
+import { redirect } from 'next/navigation';
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
@@ -41,7 +40,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
                 <p className="max-sm:hidden">{tab.label}</p>
 
                 {tab.value == ProfileTabKeys.treads && (
-                  <p className="ml-1 rounded-full bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                  <p className="ml-1 rounded-lg bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
                     {userInfo.threads.length}
                   </p>
                 )}
