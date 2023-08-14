@@ -33,6 +33,8 @@ interface IThreadCardProps {
 export const ThreadCard = (props: IThreadCardProps) => {
   const authorLink = `/profile/${props.author.id}`;
 
+  console.log(props.community);
+
   return (
     <article
       className={cn(

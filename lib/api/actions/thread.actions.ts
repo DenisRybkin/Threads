@@ -24,28 +24,27 @@ export const createThread = async ({
   try {
     await connectToDB();
 
-    /*const communityIdObject = await Community.findOne(
+    const communityIdObject = await Community.findOne(
       { id: communityId },
       { _id: 1 }
-    );*/
+    );
 
     const createdThread = await Thread.create({
       text,
       author,
-      community: null, // Assign communityId if provided, or leave it null for personal account
+      community: communityIdObject,
     });
 
-    // Update User model
     await User.findByIdAndUpdate(author, {
       $push: { threads: createdThread._id },
     });
 
-    /*if (communityIdObject) {
+    if (communityIdObject) {
       // Update Community model
       await Community.findByIdAndUpdate(communityIdObject, {
         $push: { threads: createdThread._id },
       });
-    }*/
+    }
 
     revalidatePath(path);
   } catch (error: any) {

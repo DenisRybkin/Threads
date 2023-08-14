@@ -16,7 +16,7 @@ export default async function Page() {
     <>
       <h1 className="head-text">Create thread</h1>
 
-      <PostThreadForm userId={userInfo._id} />
+      <PostThreadForm userId={userInfo._id.toString()} />
     </>
   );
 }
